@@ -1,11 +1,13 @@
-# obtain a list of files in the input directory
 import os
+
+from .write_count_words import write_count_words
 
 
 def read_all_lines():
     all_lines = []
-    input_file_list = os.listdir("data/input/")
-    for filename in input_file_list:
+    input_files_list = os.listdir("data/input/")
+
+    for filename in input_files_list:
         with open(filename, "r", encoding="utf-8") as f:
             lines = f.readlines()
             all_lines.extend(lines)
@@ -13,11 +15,14 @@ def read_all_lines():
 
 
 def main():
-    input_file_list = os.listdir("data/input/")
+
+    ##read all lines
+    # all_lines = []
+    input_files_list = os.listdir("data/input/")
 
     # count the frequency of the words in the files in the input directory
     counter = {}
-    for filename in input_file_list:
+    for filename in input_files_list:
         with open("data/input/" + filename) as f:
             for l in f:
                 for w in l.split():
@@ -27,17 +32,17 @@ def main():
     write_count_words(counter)
 
 
-def write_count_words(counter):
-    # create the directory output/ if it doesn't exist
-    if not os.path.exists("data/output"):
-        os.makedirs("data/output")
-
-    # save the results using tsv format
-    with open("data/output/results.tsv", "w", encoding="utf-8") as f:
-        for key, value in counter.items():
-            # write the key and value to the file
-            f.write(f"{key}\t{value}\n")
-
-
 if __name__ == "__main__":
     main()
+
+
+# create the directory output/ if it doesn't exist
+# def write_count_words():
+#     if not os.path.exists("data/output"):
+#         os.makedirs("data/output")
+
+#     # save the results using tsv format
+#     with open("data/output/results.tsv", "w", encoding="utf-8") as f:
+#         for key, value in counter.items():
+#             # write the key and value to the file
+#             f.write(f"{key}\t{value}\n")
